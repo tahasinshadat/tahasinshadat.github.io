@@ -1,0 +1,560 @@
+:root {
+    /* Theme-specific (already existed in your code) */
+    --light-theme-bg: #ffffff;
+    --light-theme-color: #333333;
+    --dark-theme-bg: #000000;
+    --dark-theme-color: #f0f0f0;
+
+    /* Common color variables */
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-off-white: #f0f0f0; /* used for dark theme text */
+    --color-grey-1: #333333;    /* slightly lighter black text */
+    --color-grey-2: #222222;    /* dark grey backgrounds (navbar, etc.) */
+    --color-grey-3: #111111;    /* hero dark background */
+    --color-grey-4: #666666;    /* scrollbar thumb */
+    --color-grey-5: #cccccc;    /* hero in light theme, profile pic border, scrollbar track in light theme */
+    --color-grey-6: #dddddd;    /* hover states in light theme, theme switcher, etc. */
+    --color-grey-7: #f8f8f8;    /* navbar in light theme, footer in light theme */
+    --color-grey-8: #f8f9fa;    /* bg-alternate in light theme */
+    --color-grey-9: #1a1a1a;    /* bg-alternate in dark theme */
+    --color-grey-10: #1e1e1e;   /* project-card in dark theme */
+
+    /* Main Color Theme */
+    --dark-theme-accent-color: #007bff;      /* brand / highlight color in dark theme */
+    --light-theme-accent-color: rgb(98, 39, 138);           /* brand / highlight color in light theme */
+
+    /* For button hovers */
+    --dark-theme-accent-hover: #0056b3; /* darker shade of #007bff */
+    --light-theme-accent-hover: #b477da; /* darker shade of red */
+    --dark-send-button-hover: rgba(0, 123, 255, 0.15);
+    --light-send-button-hover: rgba(149, 43, 188, 0.15);
+
+    --color-border-white: rgba(255, 255, 255, 0.03);
+    --color-border-black: rgba(0, 0, 0, 0.07);
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Tahoma, Arial, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+}
+
+/* ---------- THEME SPECIFICS ---------- */
+/* Light theme (when .dark-theme is NOT on body) */
+body:not(.dark-theme) {
+    background-color: var(--color-white);
+    color: var(--color-grey-1);
+}
+
+/* Dark theme (when .dark-theme IS on body) */
+body.dark-theme {
+    background-color: var(--color-black);
+    color: var(--color-off-white);
+}
+
+/* ========== NAVBAR ========== */
+.navbar {
+    padding: 0.5rem 1rem;
+    background-color: var(--color-grey-2);
+    position: relative;
+}
+
+body:not(.dark-theme) .navbar {
+    background-color: var(--color-grey-7);
+    color: var(--color-grey-1);
+}
+
+/* Navbar brand (no hover color) */
+.navbar-brand {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.navbar-brand:hover {
+    color: inherit !important;
+    opacity: 1 !important;
+}
+
+/* Nav links (with bar hover) */
+.nav-link {
+    position: relative;
+    margin-right: 1rem;
+    transition: color 0.3s;
+    text-decoration: none;
+    color: inherit !important;
+}
+
+.nav-item i {
+    font-size: 0.95rem;
+}
+
+/* .nav-item {
+    margin-left: 1px;
+    margin-right: 1px;
+} */
+
+.nav-link::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+/* Dark theme => link hover bar = blue */
+body.dark-theme .nav-link::before {
+    background: var(--dark-theme-accent-color);
+}
+
+/* Light theme => link hover bar = red */
+body:not(.dark-theme) .nav-link::before {
+    background: var(--light-theme-accent-color);
+}
+
+.nav-link:hover::before {
+    width: 100%;
+}
+
+/* The hamburger menu lines with theme color */
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    background-image: none;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    display: inline-block;
+}
+
+/* Dark theme => hamburger lines = blue */
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after,
+.navbar-toggler-icon span {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--dark-theme-accent-color);
+    transition: 0.3s;
+}
+
+/* Light theme => hamburger lines = red */
+body:not(.dark-theme) .navbar-toggler-icon::before,
+body:not(.dark-theme) .navbar-toggler-icon::after,
+body:not(.dark-theme) .navbar-toggler-icon span {
+    background-color: var(--light-theme-accent-color);
+}
+
+.navbar-toggler-icon::before {
+    top: 6px;
+}
+
+.navbar-toggler-icon::after {
+    top: 18px;
+}
+
+.navbar-toggler-icon span {
+    top: 12px;
+}
+
+/* ========== RESPONSIVE HEADERS ON SMALL SCREENS ========== */
+@media (max-width: 768px) {
+    section h2 {
+        text-align: center;
+    }
+}
+
+/* ========== HERO SECTION (diamond background) ========== */
+.hero-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    text-align: center;
+    position: relative;
+}
+
+.hero-section::before,
+.hero-section::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-grey-3);
+    transform: skewY(-20deg);
+    transform-origin: top left;
+    z-index: -1;
+    border: 2px solid var(--color-border-white);
+    animation: borderTrail 5s linear infinite;
+}
+
+/* Light theme => hero diamond is lighter & with blackish border */
+body:not(.dark-theme) .hero-section::before,
+body:not(.dark-theme) .hero-section::after {
+    background: var(--color-grey-5);
+    border: 2px solid var(--color-border-black);
+}
+
+.hero-section::after {
+    transform: skewY(20deg) translateY(-50%);
+    transform-origin: bottom left;
+    opacity: 0.9;
+}
+
+@keyframes borderTrail {
+    0% {
+        box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.07) inset;
+    }
+    50% {
+        box-shadow: 0 0 8px 3px rgba(255, 255, 255, 0.1) inset;
+    }
+    100% {
+        box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.07) inset;
+    }
+}
+
+/* ========== PROFILE PIC, HIGHLIGHT, ETC. ========== */
+.profile-pic {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    object-fit: cover;
+    border: 3px solid var(--color-grey-5);
+}
+
+/* Dark theme highlight => blue; Light theme => red */
+.highlight {
+    color: var(--dark-theme-accent-color);
+}
+body:not(.dark-theme) .highlight {
+    color: var(--light-theme-accent-color);
+}
+
+/* ========== BRAND BUTTONS ========== */
+.brand-btn {
+    background-color: var(--dark-theme-accent-color);
+    border-color: var(--dark-theme-accent-color);
+    color: var(--color-white);
+    transition: background-color 0.3s;
+}
+
+/* Dark theme => button = blue, on hover => darker blue */
+body.dark-theme .brand-btn {
+    background-color: var(--dark-theme-accent-color) !important;
+    border-color: var(--dark-theme-accent-color) !important;
+}
+body.dark-theme .brand-btn:hover {
+    background-color: var(--dark-theme-accent-hover) !important; /* darker blue */
+}
+
+/* Light theme => button = red, on hover => darker red */
+body:not(.dark-theme) .brand-btn {
+    background-color: var(--light-theme-accent-color) !important;
+    border-color: var(--light-theme-accent-color) !important;
+}
+body:not(.dark-theme) .brand-btn:hover {
+    background-color: var(--light-theme-accent-hover) !important; /* darker red */
+}
+
+
+/* ========== ABOUT SECTION ========== */
+.about-wrapper {
+    width: 50%;
+    margin: 0 auto 0 0;
+    text-align: left;
+}
+
+@media (max-width: 992px) {
+    .about-wrapper {
+        width: 100%;
+        text-align: center;
+        margin: 0 auto;
+    }
+}
+
+section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* Light theme => #f8f9fa; dark theme => #1a1a1a */
+.bg-alternate {
+    background-color: var(--color-grey-8);
+}
+body.dark-theme .bg-alternate {
+    background-color: var(--color-grey-9);
+}
+
+/* ========== PROJECTS SECTION ========== */
+.projects-fullwidth {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    background: transparent;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.projects-fullwidth::-webkit-scrollbar {
+    height: 12px;
+}
+
+/* Dark theme => track = #222; Light theme => track = #ccc */
+.projects-fullwidth::-webkit-scrollbar-track {
+    background: var(--color-grey-2);
+}
+body:not(.dark-theme) .projects-fullwidth::-webkit-scrollbar-track {
+    background: var(--color-grey-5);
+}
+
+/* Scrollbar thumb => #666 */
+.projects-fullwidth::-webkit-scrollbar-thumb {
+    background: var(--color-grey-4);
+    border-radius: 6px;
+}
+
+.projects-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2rem;
+    padding: 2rem 1rem;
+}
+@media (max-width: 992px) {
+    .projects-container {
+        padding: 2rem 0rem;
+    }
+}
+
+.first-project {
+    margin-left: 2rem;
+}
+
+/* Light theme => #fff; Dark theme => #1e1e1e */
+.project-card {
+    min-width: 350px; 
+    max-width: 350px;
+    flex: 0 0 auto;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+body.dark-theme .project-card {
+    background-color: var(--color-grey-10);
+    color: var(--color-off-white);
+}
+
+.project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 0px 10px 2px var(--light-theme-accent-hover);
+}
+
+body.dark-theme .project-card:hover {
+    box-shadow: 0px 0px 10px 2px var(--dark-theme-accent-hover);
+}
+
+.project-card img {
+    height: 140px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+/* ========== CONTACT SECTION (Collapsible) ========== */
+.toggle-container {
+    margin-top: 1rem;
+    position: relative;
+}
+
+/* Dark theme => #000 bg, #fff text; Light => #fff bg, #000 text */
+.toggle-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+    background: var(--color-black);
+    color: var(--color-white);
+    border: none;
+    border-top: 1px solid var(--color-white);
+    padding: 0.75rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background 0.3s;
+}
+
+.toggle-btn:hover {
+    background: var(--color-grey-2);
+}
+
+body:not(.dark-theme) .toggle-btn {
+    background: var(--color-white);
+    color: var(--color-black);
+    border-top: 1px solid var(--color-black);
+}
+body:not(.dark-theme) .toggle-btn:hover {
+    background: var(--color-grey-6);
+}
+
+.collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s ease, opacity 0.6s ease;
+    opacity: 0;
+}
+
+#thankYouMessage {
+    display: none;
+}
+
+/* MANCER Button */
+#mancer {
+    width: 25%;
+}
+
+@media (max-width: 992px) {
+    #mancer {
+        width: 50%;
+    }
+}
+
+
+/* ========== SEND BUTTON ========== */
+.send-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    background: var(--color-black); 
+    color: var(--color-white);
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid var(--dark-theme-accent-color);
+    padding: 0.75rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s, border-bottom 0.3s;
+}
+
+/* Dark theme => border = blue, hover => lighter blue fill */
+body.dark-theme .send-btn {
+    border-bottom-color: var(--dark-theme-accent-color);
+    background: var(--color-black);
+    color: var(--color-white);
+}
+body.dark-theme .send-btn:hover {
+    background: var(--dark-send-button-hover);
+    color: var(--color-white);
+}
+
+/* Light theme => border = red, hover => lighter red fill */
+body:not(.dark-theme) .send-btn {
+    border-bottom-color: var(--light-theme-accent-color);
+    background: var(--color-white);
+    color: var(--color-black);
+}
+body:not(.dark-theme) .send-btn:hover {
+    background: var(--light-send-button-hover);
+    color: var(--color-black);
+}
+
+/* ========== FOOTER ========== */
+footer {
+    background-color: var(--color-grey-2);
+    color: var(--color-off-white);
+    margin-top: 2rem;
+    position: relative;
+}
+body:not(.dark-theme) footer {
+    background-color: var(--color-grey-7);
+    color: var(--color-grey-1);
+}
+
+/* ========== SCROLL TO TOP BUTTON ========== */
+#back_to_top_btn {
+    display: none;
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 99;
+    font-size: 1.2rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    border-radius: 50px;
+    color: var(--color-white);
+    background-color: var(--dark-theme-accent-color); 
+    opacity: 0.75;
+    transition: opacity 0.3s, background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#back_to_top_btn:hover {
+    opacity: 1;
+}
+
+body:not(.dark-theme) #back_to_top_btn {
+    background-color: var(--light-theme-accent-color);
+}
+
+/* ========== THEME SWITCHER BUTTON ========== */
+.theme-switcher {
+    position: fixed;
+    bottom: 40px;
+    left: 40px;
+    z-index: 100;
+    border-radius: 50px;
+    padding: 0.75rem 1rem;
+    border: none;
+    opacity: 0.75;
+    transition: opacity 0.3s, background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--color-white);
+    background-color: var(--color-grey-2);
+}
+
+.theme-switcher:hover {
+    opacity: 1;
+}
+
+body:not(.dark-theme) .theme-switcher {
+    background-color: var(--color-grey-6);
+    color: var(--color-grey-1);
+}
+
+.no-dec {
+    text-decoration: none;
+}
